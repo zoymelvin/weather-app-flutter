@@ -1,16 +1,43 @@
-# weather_app_joymelvin
+# Aplikasi Cuaca (Weather App)
 
-A new Flutter project.
+**Nama:** Joy Melvin 
 
-## Getting Started
+**Proyek:** Weather App
 
-This project is a starting point for a Flutter application.
+Aplikasi Flutter sederhana yang menampilkan data cuaca statis (dummy)
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 📸 Tampilan Aplikasi
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Tampilan Ponsel (ListView) 
+| :---: |
+| (<img width="364" height="772" alt="image" src="https://github.com/user-attachments/assets/098195fb-8143-4956-b1b8-41b39a671939" />
+
+---
+
+### ✅ Pemenuhan Kriteria Tugas
+
+Berikut adalah bagaimana proyek ini memenuhi semua kriteria tugas yang diberikan:
+
+* **1. Tampilkan Daftar Kota (Data Dummy)**
+    * Aplikasi berhasil menampilkan daftar kota beserta suhu dan kondisinya.
+    * Data yang digunakan bersifat statis (dummy) dan diambil dari file `lib/data/dummy_weather_data.dart`. Tidak ada panggilan API eksternal.
+
+* **2. Desain UI Adaptif (ListView vs GridView)**
+    * UI dirancang untuk adaptif terhadap ukuran layar.
+    * Pada layar kecil (lebar **≤ 600px**), daftar "Kota lain" akan ditampilkan menggunakan **`ListView`**.
+    * Pada layar besar (lebar **> 600px**), daftar tersebut akan otomatis beralih menggunakan **`GridView`** dengan 2 kolom.
+    * Logika adaptif ini diimplementasikan di dalam widget `_OtherCitiesList` pada file `lib/screens/home_screen.dart` menggunakan `LayoutBuilder`.
+
+* **3. Elemen Visual & Desain Rapi**
+    * Aplikasi memiliki tampilan yang bersih dengan skema warna gelap yang konsisten, diatur secara terpusat di `main.dart` dan `lib/utils/app_colors.dart`.
+    * Ikon cuaca (emoji) disertakan untuk setiap kondisi cuaca pada kartu utama dan daftar kota.
+    * Layout dijaga agar tetap rapi dengan `Padding` dan `SizedBox` yang konsisten.
+
+* **4. Tidak Ada Kodingan Redundant**
+    * Untuk memastikan kode bersih dan mudah dirawat, file `home_screen.dart` di-refactor dengan memecah UI menjadi widget-widget privat yang lebih kecil (spt `_Header`, `_CurrentWeatherCard`, `_SectionTitle`, dll.).
+    * Pendekatan ini menerapkan *Single Responsibility Principle (SRP)*, di mana setiap widget memiliki satu tanggung jawab spesifik, sehingga mengurangi redundansi.
+
+---
+
