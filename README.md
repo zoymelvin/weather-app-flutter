@@ -42,6 +42,6 @@ Tantangan utamanya adalah bagaimana menampilkan data spesifik (misalnya suhu Ban
 
 ## 3. Pelajaran tentang Struktur Navigasi dan Modularisasi
 
-Pelajaran paling berharga yang saya dapat adalah bahwa **navigasi bukan cuma soal perintah pindah layar, tapi soal menata struktur aplikasi**.
+Pelajaran paling penting yang saya dapat adalah bahwa **navigasi bukan cuma soal perintah pindah layar, tapi soal menata struktur aplikasi**.
 
 Awalnya saya kira navigasi cuma sekadar `Navigator.push`. Tapi ternyata, memisahkan kerangka utama navigasi (seperti `MainWrapper` yang memegang tombol bawah) dari isi halaman (`HomeScreen`, `ProfileScreen`) itu sangat penting. Ini mengajarkan saya prinsip **Satu Tugas untuk Satu Widget**: biarkan `MainWrapper` yang mengatur navigasi global, dan biarkan setiap halaman fokus pada isinya sendiri. Memecah-mecah kode (modularisasi)—seperti memisahkan widget kecil dan halaman—membuat kode saya jadi jauh lebih rapi, gampang dibaca, dan aman kalau mau ditambah fitur baru nanti.
