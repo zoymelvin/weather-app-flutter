@@ -7,43 +7,49 @@ import '../utils/app_colors.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  static const double _kVerticalPadding = 16.0;
-
   @override
   Widget build(BuildContext context) {
     final WeatherModel mainWeather = dummyWeatherData.first;
     final List<WeatherModel> otherCities = dummyWeatherData.skip(1).toList();
 
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(_kVerticalPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const _Header(),
-              const SizedBox(height: _kVerticalPadding),
-              _LocationInfo(weather: mainWeather),
-              const SizedBox(height: _kVerticalPadding),
-              _CurrentWeatherCard(weather: mainWeather),
-              const SizedBox(height: 24),
-              const _SectionTitle(title: "Kota lain di Indonesia"),
-              const SizedBox(height: 8),
-              _OtherCitiesList(cities: otherCities),
-              const SizedBox(height: 24),
-            ],
-          ),
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [            
+            _buildHeader(),
+            const SizedBox(height: 10),
+
+            _buildLocationRow(mainWeather),
+            const SizedBox(height: 14),
+
+            _buildCurrentCard(mainWeather),
+            const SizedBox(height: 16),
+
+            _buildSectionTitle(),
+            const SizedBox(height: 6),
+
+            LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                if (constraints.maxWidth <= 600) {
+                  return _buildListView(otherCities); 
+                } else {
+                  return _buildGridView(otherCities); 
+                }
+              },
+            ),
+            
+            const SizedBox(height: 10),
+
+            _buildFooter(),
+          ],
         ),
       ),
     );
   }
-}
-
-class _Header extends StatelessWidget {
-  const _Header({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  
+  Widget _buildHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,14 +72,9 @@ class _Header extends StatelessWidget {
       ],
     );
   }
-}
 
-class _LocationInfo extends StatelessWidget {
-  final WeatherModel weather;
-  const _LocationInfo({Key? key, required this.weather}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  
+  Widget _buildLocationRow(WeatherModel weather) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -85,8 +86,8 @@ class _LocationInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Lokasi",
-                  style: TextStyle(fontSize: 11.2, color: AppColors.kTextSub),
+                  "Lokasi :",
+                  style: TextStyle(fontSize: 13, color: AppColors.kTextSub),
                 ),
                 Text(
                   "${weather.city}, Indonesia",
@@ -102,15 +103,8 @@ class _LocationInfo extends StatelessWidget {
       ],
     );
   }
-}
 
-class _CurrentWeatherCard extends StatelessWidget {
-  final WeatherModel weather;
-  const _CurrentWeatherCard({Key? key, required this.weather})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildCurrentCard(WeatherModel weather) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
       decoration: BoxDecoration(
@@ -167,44 +161,27 @@ class _CurrentWeatherCard extends StatelessWidget {
       ),
     );
   }
-}
 
-class _SectionTitle extends StatelessWidget {
-  final String title;
-  const _SectionTitle({Key? key, required this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSectionTitle() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          title,
+          "Kota lain di Indonesia",
           style: TextStyle(
             fontSize: 14.4,
             fontWeight: FontWeight.w500,
             color: AppColors.kTextMain,
           ),
         ),
+        Text(
+          "Data Cuaca     ",
+          style: TextStyle(
+            fontSize: 11.2,
+            color: AppColors.kTextFooter,
+          ),
+        ),
       ],
-    );
-  }
-}
-
-class _OtherCitiesList extends StatelessWidget {
-  final List<WeatherModel> cities;
-  const _OtherCitiesList({Key? key, required this.cities}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth <= 600) {
-          return _buildListView(cities);
-        } else {
-          return _buildGridView(cities);
-        }
-      },
     );
   }
 
@@ -236,6 +213,19 @@ class _OtherCitiesList extends StatelessWidget {
       itemBuilder: (context, index) {
         return WeatherCard(weather: cities[index]);
       },
+    );
+  }
+
+  Widget _buildFooter() {
+    return Center(
+      child: Text(
+        "Data cuaca dibuat statis untuk tugas",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 10.8,
+          color: AppColors.kTextFooter,
+        ),
+      ),
     );
   }
 }
