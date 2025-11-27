@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app_joymelvin/utils/app_colors.dart';
 import '../utils/app_colors.dart';
 
 class profileScreen extends StatelessWidget {
